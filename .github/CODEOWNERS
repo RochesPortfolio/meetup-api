@@ -3,3 +3,9 @@ tsconfig.json roches856@gmail.com
 
 # Protected TS config
 src/config/local.ts roches856@gmail.com 
+
+# Protected Lint config
+.eslintrc.js roches856@gmail.com 
+
+# Protected Lint config
+.github/workflows/lint.yml roches856@gmail.com 
