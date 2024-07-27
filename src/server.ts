@@ -52,7 +52,6 @@ app.delete("/users/:id", async function (req: Request, res: Response) {
 })
 
 // start express server
-app.listen(3000)
 app.listen(config.server.port, () => {
     console.log(`Server is running in http://localhost:${config.server.port}`)
 })
