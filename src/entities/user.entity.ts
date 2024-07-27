@@ -4,7 +4,7 @@ import { BaseEntity } from "../common/base.entity"
 @Entity({name: 'user'})
 export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
-    private id: number
+    public id: number
 
     @Column()
     public firstName: string

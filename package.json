@@ -10,7 +10,9 @@
     "build": "tsc",
     "compose": "docker-compose up -d",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "f -w",
+    "format:check": "f"
 
   },
   "author": "Marlon Roches",
