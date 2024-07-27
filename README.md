@@ -14,10 +14,7 @@ Pass: rootRDS123!
     username: "admin",
     password: "rootRDS123!",
     database: "MeetUpDev",
-    // agregar las entidades a la configuración
-    entities: [
-        User
-    ],
+  ...
     logging: true,
     synchronize: true,
 }
