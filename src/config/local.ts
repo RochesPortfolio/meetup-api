@@ -1,6 +1,6 @@
 export const config = {
     server: {
-        port: 3000,
+        port: 3030,
 
     },
     db: {

@@ -2,7 +2,7 @@
   "name": "meetup-api",
   "version": "1.0.0",
   "description": "Api de servicio para el mobile-app",
-  "main": "index.js",
+  "main": "./src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --inspect=5858 -r ts-node/register ./src/server.ts",
