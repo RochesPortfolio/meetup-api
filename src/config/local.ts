@@ -1,5 +1,5 @@
 import { DataSourceOptions } from "typeorm";
-import { User } from "../entities/user.entity";
+import { Entities } from "../entities/entities.array";
 
 
 const databaseConfig: DataSourceOptions =
@@ -11,9 +11,7 @@ const databaseConfig: DataSourceOptions =
     password: "password",
     database: "MeetUpDev",
     // agregar las entidades a la configuración
-    entities: [
-        User
-    ],
+    entities: Entities,
     logging: true,
     synchronize: true,
 }
@@ -21,7 +19,6 @@ const databaseConfig: DataSourceOptions =
 export const config = {
     server: {
         port: 3030,
-
     },
     db: databaseConfig
 };
