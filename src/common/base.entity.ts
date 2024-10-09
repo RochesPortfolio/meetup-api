@@ -1,4 +1,4 @@
-export declare abstract class BaseEntity {
+export class BaseEntity {
     public createdAt: Date;
     public updatedAt: Date;
 }
