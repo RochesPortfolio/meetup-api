@@ -8,3 +8,4 @@ export const createUser = async (req: Request, res: Response) => {
     const results = await myDataSource.getRepository(User).save(user);
     return res.send(results);
 };
+
