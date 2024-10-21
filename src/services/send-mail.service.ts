@@ -1,12 +1,10 @@
-import { format, transports, createLogger } from 'winston';
 import { createTransport, Transporter } from 'nodemailer';
 import { google } from 'googleapis';
 import { config } from '../config/local';
 import loggerService from './logger.service';
 import { buildMailBody } from '../mail-templates/html-mail-body.builder';
 import { MailTemplateType } from '../mail-templates/interfaces/mail-template.type';
-import { buildErrorResponse, buildOkResponse, BaseResponseDto } from '../dtos/base-response.dto';
-import { HttpStatus } from '../enums/http-code.enum';
+import { buildOkResponse, BaseResponseDto } from '../dtos/base-response.dto';
 const thisFunctionName = 'SendMailService';
 
 export interface SendMailProps {
