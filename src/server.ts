@@ -3,6 +3,8 @@ import { config } from "./config/local"
 import { myDataSource } from "./database/app-data-source"
 import commandRoutes from "./routes/command.routes"
 import queryRoutes from "./routes/query.routes"
+import * as swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './../swaggerConfig';
 
 // create and setup express app
 const app = express()
@@ -17,6 +19,7 @@ myDataSource
         // register routes
         app.use('/api', commandRoutes);
         app.use('/api', queryRoutes);
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
         // start express server
         app.listen(config.server.port, () => {
