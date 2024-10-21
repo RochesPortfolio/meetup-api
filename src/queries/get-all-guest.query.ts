@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { myDataSource } from "../database/app-data-source";
 import { Invitacion } from "../entities/invitacion.entity";
 
-export const getAllGuest = async (req: Request, res: Response) => {
+export const getAllInvites = async (req: Request, res: Response) => {
     try {
         const invitations = myDataSource.getRepository(Invitacion);
 

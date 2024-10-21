@@ -2,11 +2,15 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Persona } from "./persona.entity";
 import { Empresa } from "./empresa.entity";
 import { Evento } from "./evento.entity";
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity({ name: 'Invitacion' })
 export class Invitacion {
     @PrimaryGeneratedColumn()
     public id_invitacion: number;
+
+    @Column({ type:"uuid", unique: true , nullable: false})
+    public hash_invite: string;
 
     @ManyToOne(() => Persona)
     public id_persona: Persona;
@@ -28,4 +32,9 @@ export class Invitacion {
 
     @Column({ type: 'text', nullable: true })
     public notas: string;
+
+    constructor() {
+        this.hash_invite = uuidv4();
+    }
+
 }
