@@ -19,7 +19,7 @@ export function buildOkResponse(data: any, message: string): BaseResponseDto {
 }
 export function buildErrorResponse(data: any, message: string, httpStatus: HttpStatus): BaseResponseDto {
     const response: BaseResponseDto = {
-        data: data,
+        data: {...data},
         success: false,
         message: message,
         httpStatus: httpStatus,
