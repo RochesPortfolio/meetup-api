@@ -15,6 +15,8 @@ export const getAllInvites = async (req: Request, res: Response) => {
                             'invitacion.fecha_invitacion',
                             'invitacion.fecha_confirmacion',
                             'invitacion.estado_invitacion',
+                            'invitacion.notas',
+                            'invitacion.hash_invite',
                             'persona.nombres',
                             'persona.apellidos',
                             'persona.correo',

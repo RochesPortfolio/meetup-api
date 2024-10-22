@@ -1,11 +1,8 @@
-import { Request, Response } from "express";
 import { myDataSource } from "../database/app-data-source";
 import { Invitacion } from "../entities/invitacion.entity";
 import loggerService from "./logger.service";
-import { BaseResponseDto, buildErrorResponse, buildOkResponse } from "../dtos/base-response.dto";
-import { HttpStatus } from "../enums/http-code.enum";
 
-export const getSingleInvite = async (hash_invite :string) : Promise<BaseResponseDto> => {
+export const getSingleInvite = async (hash_invite :string) : Promise<Invitacion> => {
     try {
         loggerService.info(`Getting single invite with hash: ${hash_invite}`);
         const invitations = myDataSource.getRepository(Invitacion);
@@ -19,11 +16,11 @@ export const getSingleInvite = async (hash_invite :string) : Promise<BaseRespons
 
         if (!found) {
             loggerService.info(`Invite with hash: ${hash_invite} not found`);
-            return buildErrorResponse(undefined, 'Error getting invite', HttpStatus.NOT_FOUND);
+            return undefined;
         }
-        return buildOkResponse(found, 'Invite found');
+        return found;
     } catch (error) {
        loggerService.error(error);
-       return buildErrorResponse(undefined, 'Error getting invite', HttpStatus.NOT_FOUND);
+       return undefined;
     }
 };
