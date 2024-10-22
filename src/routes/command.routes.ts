@@ -1,6 +1,6 @@
 // src/routes/commandRoutes.ts
 import { Router } from "express";
-import { createUser, updateUser, deleteUser, sendMailCommand, confirmInvite } from "../controllers/command.controller";
+import { createUser, updateUser, deleteUser, sendMailCommand, confirmInvite , declineInvite} from "../controllers/command.controller";
 
 const router = Router();
 
@@ -11,6 +11,6 @@ router.post('/invite/sendInvite', sendMailCommand);
 
 // invite management
 router.post('/invite/confirm/:hash_invite', confirmInvite);
-router.post('/invite/decline/:hash_invite', sendMailCommand);
+router.post('/invite/decline/:hash_invite', declineInvite);
 
 export default router;

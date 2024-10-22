@@ -5,26 +5,20 @@ import { getSingleInvite } from "../services/get-single-invite.service";
 import { buildOkResponse } from "../dtos/base-response.dto";
 import { updateInvite } from "../services/update-invite.service";
 
-interface ConfirmInviteInteface {
+interface DeclineInviteInterface {
     hash_invite: string;
 }
 
-export const confirmInvite = async (req: Request, res: Response) => {
+export const declineInvite = async (req: Request, res: Response) => {
     try {
-        const { hash_invite } = req.params as unknown as ConfirmInviteInteface;
+        const { hash_invite } = req.params as unknown as DeclineInviteInterface;
         loggerService.info(`Getting single invite with hash: ${hash_invite}`);
 
         const getSingleInviteResult = await getSingleInvite(hash_invite);
 
-        if (getSingleInviteResult.estado_invitacion === "Cancelada") {
-            loggerService.info(`Invite with hash: ${hash_invite} is already canceled`);
-            return res.status(HttpStatus.BAD_REQUEST).send(
-                buildOkResponse(getSingleInviteResult, 'Invite is already canceled')
-            );
-        }
         // Modificar la invitación
-        getSingleInviteResult.estado_invitacion = "Confirmada";
-        getSingleInviteResult.fecha_confirmacion = new Date().toISOString().split('T')[0]; // Fecha actual en formato YYYY-MM-DD
+        getSingleInviteResult.estado_invitacion = "Declinada";
+        getSingleInviteResult.fecha_confirmacion = null; 
 
         // Actualizar la invitación en la base de datos
         const updateInviteResult = await updateInvite(getSingleInviteResult);

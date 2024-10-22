@@ -3,7 +3,7 @@ import { Persona } from "./persona.entity";
 import { Empresa } from "./empresa.entity";
 import { Evento } from "./evento.entity";
 
-export type EstadoInvitacion = 'Pendiente' | 'Confirmada' | 'Declinada';
+export type EstadoInvitacion = 'Pendiente' | 'Confirmada' | 'Declinada' | 'Cancelada';
 @Entity({ name: 'Invitacion' })
 export class Invitacion {
     @PrimaryGeneratedColumn()
