@@ -2,14 +2,14 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Persona } from "./persona.entity";
 import { Empresa } from "./empresa.entity";
 import { Evento } from "./evento.entity";
-import { v4 as uuidv4 } from 'uuid';
 
+export type EstadoInvitacion = 'Pendiente' | 'Confirmada' | 'Declinada' | 'Cancelada';
 @Entity({ name: 'Invitacion' })
 export class Invitacion {
     @PrimaryGeneratedColumn()
     public id_invitacion: number;
 
-    @Column({ type:"uuid", unique: true , nullable: false})
+    @Column({ type: "uuid", unique: true, nullable: false })
     public hash_invite: string;
 
     @ManyToOne(() => Persona)
@@ -21,8 +21,8 @@ export class Invitacion {
     @ManyToOne(() => Evento)
     public id_evento: Evento;
 
-    @Column({ length: 50 })
-    public estado_invitacion: string;
+    @Column({ type: "text", nullable: false })
+    public estado_invitacion: EstadoInvitacion;
 
     @Column({ type: 'date', nullable: true })
     public fecha_invitacion: string;
@@ -33,8 +33,5 @@ export class Invitacion {
     @Column({ type: 'text', nullable: true })
     public notas: string;
 
-    constructor() {
-        this.hash_invite = uuidv4();
-    }
 
 }
