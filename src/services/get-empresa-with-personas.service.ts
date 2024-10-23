@@ -1,10 +1,8 @@
 import loggerService from './logger.service';
-import { buildOkResponse, BaseResponseDto } from '../dtos/base-response.dto';
 import { myDataSource } from '../database/app-data-source';
 import { Empresa } from '../entities/empresa.entity';
 import { Persona } from '../entities/persona.entity';
 import { HttpStatus } from '../enums/http-code.enum';
-const thisFunctionName = 'getEmpresaWithPersonas';
 
 
 export interface getEmpresaWithPersonasProps {

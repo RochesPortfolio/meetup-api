@@ -5,5 +5,6 @@ import { updateUser } from "../commands/update-user.command";
 import { sendMailCommand } from "../commands/send-invite.command";
 import { confirmInvite } from "../commands/confirm-invite.command";
 import { declineInvite } from "../commands/decline-invite.command";
+import { createEventCommand } from "../commands/create-event.command";
 
-export { createUser, updateUser, deleteUser, sendMailCommand, confirmInvite, declineInvite};
+export { createUser, updateUser, deleteUser, sendMailCommand, confirmInvite, declineInvite,createEventCommand};
