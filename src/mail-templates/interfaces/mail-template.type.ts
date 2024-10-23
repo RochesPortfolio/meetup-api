@@ -1,1 +1,4 @@
-export type MailTemplateType = 'survey' | 'invite';
+export type MailTemplateType =
+    'survey'
+    | 'invite'
+    | 'thanks-page';
