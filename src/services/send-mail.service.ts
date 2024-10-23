@@ -60,6 +60,7 @@ const sendEmail = async (props: SendMailProps): Promise<BaseResponseDto> => {
         loggerService.info(`Enviando correo a:`, to);
         const info = await transporter.sendMail(mailOptions);
         loggerService.info(`Correo enviado: ${info.response}`);
+        // TODO: guardar el correo en la base de datos
         return buildOkResponse(info.response, `Correo enviado correctamente.`);
     } catch (error) {
         loggerService.error(`Error enviando correo:`, error);
