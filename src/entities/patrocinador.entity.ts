@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Segmento } from "./segmento.entity";
 
 @Entity({ name: 'Patrocinador' })
@@ -18,7 +18,8 @@ export class Patrocinador {
     @Column({ length: 50, nullable: true })
     public pais_origen: string;
 
-    @ManyToOne(() => Segmento)
+    @ManyToOne(() => Segmento, (segmento) => segmento.id_segmento)
+    @JoinColumn({ name: 'id_segmento' })
     public id_segmento: Segmento;
 
     @Column({ type: 'int', nullable: true })
@@ -33,3 +34,4 @@ export class Patrocinador {
     @UpdateDateColumn()
     public fecha_actualizacion: Date;
 }
+
