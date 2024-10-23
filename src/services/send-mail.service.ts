@@ -5,13 +5,19 @@ import loggerService from './logger.service';
 import { buildMailBody } from '../mail-templates/html-mail-body.builder';
 import { MailTemplateType } from '../mail-templates/interfaces/mail-template.type';
 import { buildOkResponse, BaseResponseDto } from '../dtos/base-response.dto';
+import { myDataSource } from '../database/app-data-source';
+import { Invitacion } from '../entities/invitacion.entity';
 const thisFunctionName = 'SendMailService';
+import { v4 as uuidv4 } from 'uuid';
+import { Persona } from '../entities/persona.entity';
+import { Evento } from '../entities/evento.entity';
 
 export interface SendMailProps {
     from: string;
     to: string;
     subject: string;
-    mailTemplateType?: MailTemplateType;
+    mailTemplateType: MailTemplateType;
+    hash_evento: string;
 }
 
 // Inicialización del cliente OAuth2
@@ -49,7 +55,7 @@ const createTransporter = async (): Promise<Transporter> => {
 
 const sendEmail = async (props: SendMailProps): Promise<BaseResponseDto> => {
 
-    const { from, to, subject, mailTemplateType } = props;
+    const { from, to, subject, mailTemplateType, hash_evento } = props;
 
     const html = buildMailBody(mailTemplateType);
 
@@ -57,26 +63,77 @@ const sendEmail = async (props: SendMailProps): Promise<BaseResponseDto> => {
         const transporter = await createTransporter();
         const mailOptions = { from, to, subject, html };
 
-        loggerService.info(`Enviando correo a:`, to);
+        loggerService.info(`Enviando correo a: ${to}`, );
         const info = await transporter.sendMail(mailOptions);
         loggerService.info(`Correo enviado: ${info.response}`);
-        // TODO: guardar el correo en la base de datos
-        return buildOkResponse(info.response, `Correo enviado correctamente.`);
+
+        const newInvite = myDataSource.getRepository(Invitacion).create();
+
+        newInvite.hash_invite = uuidv4();
+        const persona = await findPersonaByEmail(to);
+        loggerService.info(`Persona encontrada!`);
+        newInvite.id_persona = persona;
+        newInvite.id_empresa = persona.id_empresa;
+        loggerService.info(`Empresa encontrada! ${persona.id_empresa.id_empresa}`);
+
+        newInvite.id_evento = await findEventoByHash(hash_evento);
+        newInvite.estado_invitacion = 'Pendiente';
+        newInvite.fecha_invitacion = new Date().toISOString();
+        newInvite.fecha_confirmacion = null;
+        newInvite.notas = null;
+        newInvite.tipo_invitacion = mailTemplateType;
+
+
+        try {
+            await myDataSource.getRepository(Invitacion).save(newInvite);
+            return buildOkResponse(info.response, `Correo enviado correctamente.`);
+        } catch (error) {
+            loggerService.error(`Error guardando la invitación en la base de datos:`, error);
+            throw new Error(`No se pudo guardar la invitación en la base de datos.`);
+        }
     } catch (error) {
         loggerService.error(`Error enviando correo:`, error);
         throw new Error(`No se pudo enviar el correo.`);
     }
 }
+
+const findPersonaByEmail = async (email: string): Promise<Persona> => {
+    const persona = await myDataSource.getRepository(Persona).findOne({ where: { correo: email }, relations: ['id_empresa'] },);
+    if (!persona) {
+        throw new Error(`No se encontró la persona con el correo: ${email}`);
+    }
+
+    if (!persona.id_empresa) {
+        throw new Error(`La persona con el correo: ${email} no tiene empresa asociada.`);
+    }
+    return persona;
+
+}
+
+const findEventoByHash = async (hash: string): Promise<Evento> => {
+    const evento = await myDataSource.getRepository(Evento).findOne({ where: { hash_evento: hash } });
+    if (!evento) {
+        throw new Error(`No se encontró el evento con el hash: ${hash}`);
+    }
+    return evento;
+
+}
+
 // Servicio de envío de correo
 export const SendMailService = async (props: SendMailProps | SendMailProps[]): Promise<BaseResponseDto> => {
     loggerService.info(`[${thisFunctionName}] Iniciando servicio de envío de correo...`);
     if (Array.isArray(props)) {
         for (const emailProps of props) {
-            await sendEmail(emailProps);
+           try {
+            return await sendEmail(emailProps);
+           } catch (error) {
+               loggerService.error(`Error enviando correo a : ${emailProps.to}`, error);
+               continue;
+           }
         }
         return buildOkResponse(null, `Correos enviados correctamente.`);
     } else {
-       return await sendEmail(props);
+        return await sendEmail(props);
     }
 
 };

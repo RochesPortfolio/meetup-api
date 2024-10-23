@@ -11,7 +11,7 @@ const databaseConfig: DataSourceOptions =
     database: "MeetUpDev",
     entities: Entities,
     logging: true,
-    synchronize: true,
+    synchronize: false,
 }
 
 const accountTransport = {
@@ -29,8 +29,7 @@ const accountTransport = {
 export const config = {
     server: {
         port: 3030,
-        // baseUrl: "http://localhost:3000",
     },
     db: databaseConfig,
-    mailing: accountTransport,
+    mailing: accountTransport
 };
