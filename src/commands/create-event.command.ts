@@ -1,11 +1,10 @@
 // src/commands/createEventCommand.ts
 import { Request, Response } from "express";
 import { myDataSource } from "../database/app-data-source";
-import { User } from "../entities/user.entity";
 import { Evento } from "../entities/evento.entity";
 import { v4 as uuidv4 } from 'uuid';
 import loggerService from "../services/logger.service";
-import { BaseResponseDto, buildErrorResponse, buildOkResponse } from "../dtos/base-response.dto";
+import { buildErrorResponse, buildOkResponse } from "../dtos/base-response.dto";
 import { HttpStatus } from "../enums/http-code.enum";
 
 export interface EventBodyProps {
