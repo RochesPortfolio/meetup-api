@@ -5,6 +5,9 @@ export class Evento {
     @PrimaryGeneratedColumn()
     public id_evento: number;
 
+    @Column({type: 'uuid', nullable: false, unique: true})
+    public hash_evento: string;
+
     @Column({ length: 100 })
     public nombre_evento: string;
 
@@ -19,6 +22,9 @@ export class Evento {
 
     @Column({ type: 'text', nullable: true })
     public descripcion: string;
+
+    @Column({ type: 'text', nullable: true })
+    public rubro_negocio: string;
 
     @Column({ type: 'time', nullable: true })
     public hora_inicio: string;

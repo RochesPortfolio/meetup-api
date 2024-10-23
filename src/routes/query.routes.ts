@@ -1,6 +1,6 @@
 // src/routes/queryRoutes.ts
 import { Router } from "express";
-import { getAllInvites, getAllUsers, getEnterpricesWithPersons, getInviteInfo, getUserById } from "../controllers/query.controller";
+import { GetEventoByMonthAndYearQuery, getAllInvites, getAllUsers, getEnterpricesWithPersons, getInviteInfo, getUserById } from "../controllers/query.controller";
 
 const router = Router();
 
@@ -10,7 +10,7 @@ router.get("/invites", getAllInvites);
 router.get("/invite/info/:hash_invite", getInviteInfo);
 
 router.get("/getEnterprisesWithPersons", getEnterpricesWithPersons);
-router.get("/enterprisesWithPersons", getEnterpricesWithPersons);
+router.get("/events/:month/:year", GetEventoByMonthAndYearQuery);
 
 
 export default router;
