@@ -4,7 +4,7 @@ import { Empresa } from "./empresa.entity";
 import { Evento } from "./evento.entity";
 import { MailTemplateType } from "../mail-templates/interfaces/mail-template.type";
 
-export type EstadoInvitacion = 'Pendiente' | 'Confirmada' | 'Declinada' | 'Cancelada';
+export type EstadoInvitacion = 'Pendiente' | 'Confirmada' | 'Declinada' | 'Cancelada' | 'Fallida';
 @Entity({ name: 'Invitacion' })
 export class Invitacion {
     @PrimaryGeneratedColumn()
