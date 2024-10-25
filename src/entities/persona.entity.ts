@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Empresa } from "./empresa.entity";
 
 @Entity({ name: 'Persona' })
@@ -24,7 +24,8 @@ export class Persona {
     @Column({ type: 'char', length: 1, nullable: true })
     genero: string;
 
-    @ManyToOne(() => Empresa)
+    @ManyToOne(() => Empresa, (empresa) => empresa.id_empresa)
+    @JoinColumn({ name: 'id_empresa' })
     id_empresa: Empresa;
 
     @Column({ length: 100, nullable: true })

@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Persona } from "./persona.entity";
 @Entity({ name: 'Empresa' })
 export class Empresa {
     @PrimaryGeneratedColumn()
@@ -31,4 +31,7 @@ export class Empresa {
 
     @UpdateDateColumn()
     public fecha_actualizacion: Date;
+    
+    @OneToMany(() => Persona, persona => persona.id_empresa)
+    personas: Persona[];
 }
