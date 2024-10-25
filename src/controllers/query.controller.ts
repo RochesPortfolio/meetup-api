@@ -4,5 +4,10 @@ import { getEnterpricesWithPersons } from "../queries/get-empresas-with-personas
 import { GetEventoByMonthAndYearQuery } from "../queries/get-all-events-between-dates.query";
 import { getInviteInfo } from "../queries/get-invite-info.query";
 import { getUserById } from "../queries/get-user-by-id.query";
+import { GetAllEventsQuery } from "../queries/get-all-events.query";
 
-export { getAllUsers, getUserById,getInviteInfo,getAllInvites, getEnterpricesWithPersons , GetEventoByMonthAndYearQuery};
+export {
+    getAllUsers,
+    getUserById, getInviteInfo, getAllInvites, getEnterpricesWithPersons, GetEventoByMonthAndYearQuery,
+    GetAllEventsQuery
+};
