@@ -5,9 +5,10 @@ import { GetEventoByMonthAndYearQuery } from "../queries/get-all-events-between-
 import { getInviteInfo } from "../queries/get-invite-info.query";
 import { getUserById } from "../queries/get-user-by-id.query";
 import { GetAllEventsQuery } from "../queries/get-all-events.query";
+import {getTokenDashboard} from  "../queries/dashboard-token.query"
 
 export {
     getAllUsers,
     getUserById, getInviteInfo, getAllInvites, getEnterpricesWithPersons, GetEventoByMonthAndYearQuery,
-    GetAllEventsQuery
+    GetAllEventsQuery,getTokenDashboard
 };
