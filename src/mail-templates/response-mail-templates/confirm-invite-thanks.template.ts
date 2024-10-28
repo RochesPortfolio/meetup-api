@@ -1,3 +1,4 @@
+export const htmlConfirmInvite = `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -116,15 +117,12 @@
         <div class="wrapper-1">
             <div class="wrapper-2">
                 <h1>Gracias!</h1>
-                <p>Thanks for subscribing to our news letter. </p>
-                <p>you should receive a confirmation email soon </p>
-                <button class="go-home">
-                    go home
-                </button>
+                <p>Gracias por aceptar la invitacion!  </p>
+                <p>Nuestro equipo estará en contacto contigo proximamente! 📲 </p>
             </div>
             <div class="footer-like">
-                <p>Email not received?
-                    <a href="#">Click here to send again</a>
+                <p>El Team MeetUp 📝
+                    <a href="#"> te da las gracias por usar nuestros servicios 🥰</a>
                 </p>
             </div>
         </div>
@@ -133,3 +131,4 @@
 </body>
 
 </html>
+`

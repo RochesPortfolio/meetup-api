@@ -52,13 +52,18 @@ const createTransporter = async (): Promise<Transporter> => {
     }
 };
 
-const createNewInvite = async (to: string, hash_evento: string, mailTemplateType: string): Promise<Invitacion> => {
-    const persona = await findPersonaByEmail(to);
+const createNewInvite = async (
+    to: string,
+    hash_evento: string,
+    mailTemplateType: string,
+    persona: Persona,
+    _hash_invite : string
+): Promise<Invitacion> => {
     const evento = await findEventoByHash(hash_evento);
 
     if (!persona || !evento || persona?.id_empresa === null) {
         const newInvite = new Invitacion();
-        newInvite.hash_invite = uuidv4();
+        newInvite.hash_invite = _hash_invite;
         newInvite.id_persona = persona;
         newInvite.id_empresa = persona?.id_empresa;
         newInvite.id_evento = evento;
@@ -72,7 +77,7 @@ const createNewInvite = async (to: string, hash_evento: string, mailTemplateType
     }
 
     const newInvite = new Invitacion();
-    newInvite.hash_invite = uuidv4();
+    newInvite.hash_invite = _hash_invite;
     newInvite.id_persona = persona;
     newInvite.id_empresa = persona.id_empresa;
     newInvite.id_evento = evento;
@@ -87,8 +92,11 @@ const createNewInvite = async (to: string, hash_evento: string, mailTemplateType
 const sendEmail = async (props: SendMailProps): Promise<BaseResponseDto> => {
 
     const { from, to, subject, mailTemplateType, hash_evento } = props;
+    const persona = await findPersonaByEmail(to);
 
-    const html = buildMailBody(mailTemplateType);
+    // get user by email
+    const _uuidv4 = uuidv4();
+    const html = buildMailBody(mailTemplateType, persona,_uuidv4, subject, config.server.apiUrl);
 
     try {
         const transporter = await createTransporter();
@@ -98,7 +106,7 @@ const sendEmail = async (props: SendMailProps): Promise<BaseResponseDto> => {
         const info = await transporter.sendMail(mailOptions);
         loggerService.info(`Correo enviado: ${info.response}`);
 
-        const newInvite = await createNewInvite(to, hash_evento, mailTemplateType);
+        const newInvite = await createNewInvite(to, hash_evento, mailTemplateType, persona, _uuidv4);
 
 
         try {
