@@ -117,8 +117,8 @@ export const htmlConfirmInvite = `
         <div class="wrapper-1">
             <div class="wrapper-2">
                 <h1>Gracias!</h1>
-                <p>Gracias por aceptar la invitacion!  </p>
-                <p>Nuestro equipo estará en contacto contigo proximamente! 📲 </p>
+                <p>Gracias por la notificacion!  </p>
+                <p>Te estaremos informando sobre proximos eventos de tu interes! 📲 </p>
             </div>
             <div class="footer-like">
                 <p>El Team MeetUp 📝
