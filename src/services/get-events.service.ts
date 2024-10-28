@@ -1,7 +1,6 @@
 import loggerService from './logger.service';
 import { myDataSource } from '../database/app-data-source';
 import { Evento } from '../entities/evento.entity';
-import { Between } from 'typeorm';
 const thisFunctionName = 'GetAllEvents';
 
 

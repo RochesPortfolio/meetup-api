@@ -37,6 +37,7 @@
     "dotenv": "^16.4.5",
     "googleapis": "^144.0.0",
     "mysql": "^2.18.1",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.9.15",
     "reflect-metadata": "^0.2.2",
     "swagger-jsdoc": "^6.2.8",

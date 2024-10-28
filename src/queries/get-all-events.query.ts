@@ -2,17 +2,10 @@ import { Request, Response } from "express";
 import loggerService from "../services/logger.service";
 import { HttpStatus } from "../enums/http-code.enum";
 import { buildErrorResponse, buildOkResponse } from "../dtos/base-response.dto";
-import { GetEventoByMonthAndYear } from "../services/get-events-between-dates.service";
 import { GetAllEvents } from "../services/get-events.service";
-
-interface GetAllEventsInterface {
-    month: number;
-    year: number;
-}
 
 export const GetAllEventsQuery = async (req: Request, res: Response) => {
     try {
-        const { month, year } = req.params as unknown as GetAllEventsInterface;
         const result = await GetAllEvents();
         if (!result) {
             loggerService.error(`[GetAllEvents] Error getting Events by month and year`);
