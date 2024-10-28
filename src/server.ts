@@ -6,6 +6,7 @@ import commandRoutes from "./routes/command.routes"
 import queryRoutes from "./routes/query.routes"
 import * as swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './../swaggerConfig';
+import './cron-jobs/checkEventStatus'
 
 // create and setup express app
 const app = express()

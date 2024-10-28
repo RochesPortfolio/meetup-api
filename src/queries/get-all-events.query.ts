@@ -12,7 +12,6 @@ interface GetAllEventsInterface {
 
 export const GetAllEventsQuery = async (req: Request, res: Response) => {
     try {
-        const { month, year } = req.params as unknown as GetAllEventsInterface;
         const result = await GetAllEvents();
         if (!result) {
             loggerService.error(`[GetAllEvents] Error getting Events by month and year`);
