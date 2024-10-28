@@ -4,6 +4,9 @@ import { HttpStatus } from "../enums/http-code.enum";
 import { getSingleInvite } from "../services/get-single-invite.service";
 import { buildOkResponse } from "../dtos/base-response.dto";
 import { updateInvite } from "../services/update-invite.service";
+const path = require('path');
+import { htmlConfirmInvite } from '../mail-templates/response-mail-templates/confirm-invite-thanks.template';
+
 
 interface ConfirmInviteInteface {
     hash_invite: string;
@@ -33,10 +36,13 @@ export const confirmInvite = async (req: Request, res: Response) => {
             return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(updateInviteResult);
         }
 
-        loggerService.info(`Invite with hash: ${hash_invite} updated successfully`);
-        return res.status(HttpStatus.OK).send(
-            buildOkResponse(updateInviteResult, 'Invite updated successfully')
-        );
+        // Devolver el archivo HTML
+        const filePath = path.join(__dirname, '../templates/confirm-invite-thanks.template.html');
+
+        res.set('Content-Type', 'text/html');
+
+        return res.status(HttpStatus.OK).send(htmlConfirmInvite);
+
 
     } catch (error) {
         loggerService.error(`[SendMailCommand] Error enviando correo(s): ${error}`);

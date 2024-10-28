@@ -30,6 +30,7 @@ const accountTransport = {
 export const config = {
     server: {
         port: 3030,
+        apiUrl: process.env.API_URL
     },
     db: databaseConfig,
     mailing: accountTransport
