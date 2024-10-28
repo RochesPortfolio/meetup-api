@@ -13,7 +13,7 @@ const app = express()
 app.use(express.json())
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Permitir solicitudes desde el frontend
+    origin: '*', // Permitir solicitudes desde cualquier origen
 }));
 
 // establish database connection
