@@ -1,11 +1,17 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
+export enum EventoEstado {
+    FINALIZADO = 'Finalizado',
+    EN_CURSO=   'En curso',
+    PLANIFICADOS = 'Pendiente'
+}
+
 @Entity({ name: 'Evento' })
 export class Evento {
     @PrimaryGeneratedColumn()
     public id_evento: number;
 
-    @Column({type: 'uuid', nullable: false, unique: true})
+    @Column({ type: 'uuid', nullable: false, unique: true })
     public hash_evento: string;
 
     @Column({ length: 100 })
@@ -25,6 +31,9 @@ export class Evento {
 
     @Column({ type: 'text', nullable: true })
     public rubro_negocio: string;
+
+    @Column({ type: 'text', nullable: true })
+    public status: EventoEstado;
 
     @Column({ type: 'time', nullable: true })
     public hora_inicio: string;
