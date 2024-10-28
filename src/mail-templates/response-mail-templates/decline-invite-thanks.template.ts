@@ -1,4 +1,4 @@
-export const htmlConfirmInvite = `
+export const htmlDeclineInvite = `
 <!DOCTYPE html>
 <html lang="en">
 

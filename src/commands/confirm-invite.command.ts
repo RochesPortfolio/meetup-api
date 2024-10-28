@@ -36,11 +36,8 @@ export const confirmInvite = async (req: Request, res: Response) => {
             return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(updateInviteResult);
         }
 
-        // Devolver el archivo HTML
-        const filePath = path.join(__dirname, '../templates/confirm-invite-thanks.template.html');
 
         res.set('Content-Type', 'text/html');
-
         return res.status(HttpStatus.OK).send(htmlConfirmInvite);
 
 

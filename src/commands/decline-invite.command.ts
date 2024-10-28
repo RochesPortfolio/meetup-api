@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import loggerService from "../services/logger.service";
 import { HttpStatus } from "../enums/http-code.enum";
 import { getSingleInvite } from "../services/get-single-invite.service";
-import { buildOkResponse } from "../dtos/base-response.dto";
 import { updateInvite } from "../services/update-invite.service";
+import { htmlDeclineInvite } from "../mail-templates/response-mail-templates/decline-invite-thanks.template";
 
 interface DeclineInviteInterface {
     hash_invite: string;
@@ -28,10 +28,9 @@ export const declineInvite = async (req: Request, res: Response) => {
         }
 
         loggerService.info(`Invite with hash: ${hash_invite} updated successfully`);
-        return res.status(HttpStatus.OK).send(
-            buildOkResponse(updateInviteResult, 'Invite updated successfully')
-        );
-
+    
+        res.set('Content-Type', 'text/html');
+        return res.status(HttpStatus.OK).send(htmlDeclineInvite);
     } catch (error) {
         loggerService.error(`[SendMailCommand] Error enviando correo(s): ${error}`);
         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: 'Error enviando correo(s)', error });
