@@ -2,7 +2,7 @@ import { myDataSource } from '../database/app-data-source';
 import { Evento } from '../entities/evento.entity';
 import { EventoEstado } from '../entities/evento.entity';
 import loggerService from '../services/logger.service';
-const cron = require('node-cron');
+import cron = require('node-cron');
 
 const checkEventStatus = async () => {
     const eventoRepository = myDataSource.getRepository(Evento);
