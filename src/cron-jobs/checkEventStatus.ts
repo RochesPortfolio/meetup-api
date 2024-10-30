@@ -39,4 +39,4 @@ const checkEventStatus = async () => {
 
 cron.schedule('*/30 * * * *', checkEventStatus);
 
-loggerService.info('Cron job programado para revisar el estado de los eventos cada 30 segundos.');
+loggerService.info('Cron job programado para revisar el estado de los eventos cada 30 min.');
