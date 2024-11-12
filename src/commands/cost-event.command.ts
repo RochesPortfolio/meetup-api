@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { myDataSource } from "../database/app-data-source";
 import { GastosEvento } from "../entities/gastoEvento.entity";
 import loggerService from "../services/logger.service";
-import { Evento } from "../entities/evento.entity";
+import { Evento,EventoEstado } from "../entities/evento.entity";
 import { buildOkResponse } from "../dtos/base-response.dto";
 import { HttpStatus } from "../enums/http-code.enum";
 
@@ -12,10 +12,13 @@ export interface Cost {
     total: number;
     descuento: number;
     estado: string;
-    descripcion: string
+    descripcion: string;
+    EventStatus?:string;
 }
 
 export interface CostBodyProps{
+    id_evento?:number,
+    status_evento?:string,
     costos: Cost[]
 }
 
@@ -23,8 +26,30 @@ export interface CostBodyProps{
 export const costEvent = async (req: Request, res: Response) => {
     try {
         const getCostBody:CostBodyProps = req.body;
+        const eventoGasto = await myDataSource.getRepository(Evento).findOne({ where: { id_evento: getCostBody.id_evento } });
+
+        if (getCostBody.id_evento && getCostBody.status_evento) {
+            let nuevoEstadoPago:EventoEstado ;
+
+            switch (getCostBody.status_evento) {
+                case 'Finalizado':
+                nuevoEstadoPago = EventoEstado.FINALIZADO;
+            break;
+            case 'En curso':
+                nuevoEstadoPago = EventoEstado.EN_CURSO;
+            break;
+            case 'Pendiente':
+                nuevoEstadoPago = EventoEstado.PLANIFICADOS;
+            break;
+            }
+            const resultado = await myDataSource.getRepository(Evento).update(eventoGasto.id_evento, {
+                status: nuevoEstadoPago,
+            });
+            loggerService.error(`[Update status event] update status event: ${resultado}`);
+        }
+        
         const nuevosCostos = getCostBody.costos.map(async (costoData) => {
-            const evento = await myDataSource.getRepository(Evento).findOne({ where: { id_evento: costoData.evento } });
+            const evento = eventoGasto;
             const newCost = new GastosEvento();
             newCost.id_evento = evento;
             newCost.total = costoData.total;

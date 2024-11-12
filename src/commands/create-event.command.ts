@@ -1,7 +1,7 @@
 // src/commands/createEventCommand.ts
 import { Request, Response } from "express";
 import { myDataSource } from "../database/app-data-source";
-import { Evento } from "../entities/evento.entity";
+import { Evento,EventoEstado } from "../entities/evento.entity";
 import { v4 as uuidv4 } from 'uuid';
 import loggerService from "../services/logger.service";
 import { buildErrorResponse, buildOkResponse } from "../dtos/base-response.dto";
@@ -46,6 +46,7 @@ export const createEventCommand = async (req: Request, res: Response)=> {
     NewEvent.hora_culminacion = hora_culminacion;
     NewEvent.fecha_inicio = fecha_inicio;
     NewEvent.fecha_finalizacion = fecha_finalizacion;
+    NewEvent.status = EventoEstado.PLANIFICADOS;
 
     loggerService.info(`Creating new event: ${NewEvent.nombre_evento}`);
     try {

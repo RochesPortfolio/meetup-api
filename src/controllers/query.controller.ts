@@ -6,9 +6,10 @@ import { getInviteInfo } from "../queries/get-invite-info.query";
 import { getUserById } from "../queries/get-user-by-id.query";
 import { GetAllEventsQuery } from "../queries/get-all-events.query";
 import {getTokenDashboard} from  "../queries/dashboard-token.query"
+import {getCostByEventId} from "../queries/get-cost-by-eventid.query"
 
 export {
     getAllUsers,
     getUserById, getInviteInfo, getAllInvites, getEnterpricesWithPersons, GetEventoByMonthAndYearQuery,
-    GetAllEventsQuery,getTokenDashboard
+    GetAllEventsQuery,getTokenDashboard,getCostByEventId
 };
