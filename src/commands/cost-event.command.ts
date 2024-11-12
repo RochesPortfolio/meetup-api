@@ -26,9 +26,10 @@ export interface CostBodyProps{
 export const costEvent = async (req: Request, res: Response) => {
     try {
         const getCostBody:CostBodyProps = req.body;
-        const eventoGasto = await myDataSource.getRepository(Evento).findOne({ where: { id_evento: getCostBody.id_evento } });
+        
 
         if (getCostBody.id_evento && getCostBody.status_evento) {
+            const eventoGasto = await myDataSource.getRepository(Evento).findOne({ where: { id_evento: getCostBody.id_evento } });
             let nuevoEstadoPago:EventoEstado ;
 
             switch (getCostBody.status_evento) {
@@ -49,7 +50,7 @@ export const costEvent = async (req: Request, res: Response) => {
         }
         
         const nuevosCostos = getCostBody.costos.map(async (costoData) => {
-            const evento = eventoGasto;
+            const evento = await myDataSource.getRepository(Evento).findOne({ where: { id_evento: costoData.evento } });
             const newCost = new GastosEvento();
             newCost.id_evento = evento;
             newCost.total = costoData.total;
